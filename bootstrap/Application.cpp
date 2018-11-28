@@ -101,6 +101,7 @@ void Application::run(const char* title, int width, int height, bool fullscreen)
 			if (fpsInterval >= 1.0f) {
 				m_fps = frames;
 				frames = 0;
+
 				fpsInterval -= 1.0f;
 			}
 
