@@ -105,22 +105,25 @@ void Game::ladder()
 
 void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
 {
-	Shop::storestate a = Shop::storestate::welcome;
 	switch (state)
 	{
-	case inShop:
-	{
-		item_Shop.draw(renderer, timer, font);
-		break;
-	}
-	case inBattle:
-	{
-		
-	}
-	case inContinue:
-	{
+		case newGame:
+		{
 
-	}
+		}
+		case inShop:
+		{
+			item_Shop.draw(renderer, timer, font);
+			break;
+		}
+		case inBattle:
+		{
+		
+		}
+		case inContinue:
+		{
+
+		}
 	}
 }
 

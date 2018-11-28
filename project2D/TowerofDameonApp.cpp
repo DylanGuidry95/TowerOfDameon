@@ -17,7 +17,6 @@ bool TowerofDameonApp::startup()
 {
 	m_2dRenderer = new aie::Renderer2D();
 	m_tower = new Game;
-	m_tower->item_Shop.keeprenderer = new aie::Renderer2D();
 	m_tower->item_Shop.shop = new aie::Texture("./textures/shop.png");
 	m_tower->item_Shop.shopkeep = new aie::Texture("./textures/sell.png");
 	m_tower->item_Shop.hero = new aie::Texture("./textures/sprites/Hero1Back.png");
@@ -39,7 +38,6 @@ bool TowerofDameonApp::startup()
 void TowerofDameonApp::shutdown()
 {
 	delete m_2dRenderer;
-	delete m_tower->item_Shop.keeprenderer;
 	delete m_tower->item_Shop.shop;
 	delete m_tower->item_Shop.shopkeep;
 }
@@ -84,8 +82,7 @@ void TowerofDameonApp::draw()
 	m_2dRenderer->begin();
 	// wipe the screen to the background colour
 	clearScreen();
-	float newcam1 = 0;
-	float newcam2 = 0;
+	
 	// set the camera position before we begin rendering
 	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
 	//m_keeprenderer->setCameraPos(m_cameraX, m_cameraY);
@@ -103,12 +100,12 @@ void TowerofDameonApp::draw()
 	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);
 	m_2dRenderer->end();
 
-	m_2dRenderer->begin();
+	/*m_2dRenderer->begin();
 	m_2dRenderer->setUVRect(int(m_timer * 8) % 3 / 2.9f, 0.f, .33, 1);
 	m_2dRenderer->drawSprite(m_IdleShopKeeper, 600, getWindowHeight() - 70, 38, 54);
 	m_2dRenderer->drawText(m_font, "ASHER : Hello young Hero! How may I aid you today on your quest?", 300, 100, 100);
 	
-	m_2dRenderer->end();
+	m_2dRenderer->end();*/
 }
 
 

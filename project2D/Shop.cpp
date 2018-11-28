@@ -74,9 +74,12 @@ void Shop::viewArmor()
 
 void Shop::draw(aie::Renderer2D*renderer, int timer,aie::Font* font)
 {
+	renderer->setUVRect(0.f, 0.f, 1, 1);
 	renderer->drawSprite(shop, 600, 450, 500, 583);
 	renderer->drawSprite(hero, 600, 400, 57, 92);
-	keeprenderer->setUVRect(int(timer * 8) % 3 / 2.9f, 0.f, .33, 1);
-	keeprenderer->drawSprite(shopkeep, 600, 720 - 70, 38, 54);
-	keeprenderer->drawText(font, speak(shopstate), 300, 100, 100);
+
+	renderer->setUVRect(int(timer * 10) % 3 / 2.9f, 0.f, .33, 1);
+	renderer->drawSprite(shopkeep, 600, 720 - 70, 38, 54);
+
+	renderer->drawText(font, speak(shopstate), 300, 100, 100);
 }

@@ -6,6 +6,7 @@
 #include <imgui.h>
 #include "Renderer2D.h"
 #include "Font.h"
+#include"Texture.h"
 class Shop
 {
 private:
@@ -24,11 +25,9 @@ public:
 	const char* speak(int num);
 	int talk;
 	enum storestate {welcome,sell,viewItems,viewDefenseItems,viewAttackItems,viewUpgrades};
-	storestate shopstate;
+	storestate shopstate;	
 
-	aie::Renderer2D*	keeprenderer;
-
-	aie::Texture*       shop;
-	aie::Texture*       shopkeep;
-	aie::Texture*       hero;
+	aie::Texture*       shop= new aie::Texture("./textures/shop.png");
+	aie::Texture*       shopkeep= new aie::Texture("./textures/sell.png");
+	aie::Texture*       hero = new aie::Texture("./textures/sprites/Hero1Back.png");
 };
