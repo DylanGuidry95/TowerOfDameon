@@ -109,7 +109,7 @@ void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
 	{
 		case newGame:
 		{
-
+			break;
 		}
 		case inShop:
 		{
@@ -118,11 +118,11 @@ void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
 		}
 		case inBattle:
 		{
-		
+			break;
 		}
 		case inContinue:
 		{
-
+			break;
 		}
 	}
 }
