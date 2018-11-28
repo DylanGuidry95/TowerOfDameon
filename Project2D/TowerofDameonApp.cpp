@@ -23,8 +23,7 @@ bool TowerofDameonApp::startup()
 	m_font = new aie::Font("./font/myfont.ttf", 32);
 	
 	m_tower->initializeshop();
-	m_tower->initializeladder();
-
+	
 	player = new Hero;
 	player->initalizeHero();
 	
@@ -69,7 +68,7 @@ void TowerofDameonApp::update(float deltaTime)
 		}
 		case(inContinue):
 		{
-
+			break;
 		}
 		}
 
