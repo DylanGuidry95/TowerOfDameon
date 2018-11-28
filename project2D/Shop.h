@@ -25,7 +25,7 @@ public:
 	const char* speak(int num);
 	int talk;
 	enum storestate {welcome,sell,viewItems,viewDefenseItems,viewAttackItems,viewUpgrades};
-	storestate shopstate;	
+	storestate shopstate = welcome;	
 
 	aie::Texture*       shop= new aie::Texture("./textures/shop.png");
 	aie::Texture*       shopkeep= new aie::Texture("./textures/sell.png");
