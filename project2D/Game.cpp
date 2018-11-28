@@ -139,10 +139,10 @@ void Game::shop(Hero* &player)
 {
 	switch (item_Shop.shopstate)
 	{
-	case 0: 
-	{
-		
-	}
+		case Shop::welcome: 
+		{
+			
+		}
 	}
 
 	/*system("cls");

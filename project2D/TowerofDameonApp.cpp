@@ -49,7 +49,7 @@ void TowerofDameonApp::update(float deltaTime)
 	
 	
 	m_timer += deltaTime;
-
+	gamestate = inShop;
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
@@ -60,11 +60,11 @@ void TowerofDameonApp::update(float deltaTime)
 			std::string name;
 			player->AssignStartingPoints(name);
 		}
-		case(inShop):
+		case inShop:
 		{
 			m_tower->shop(player);
 		}
-		case(inBattle):
+		case inBattle:
 		{
 			m_tower->battleladder();
 		}
@@ -81,6 +81,7 @@ void TowerofDameonApp::update(float deltaTime)
 
 void TowerofDameonApp::draw()
 {
+	m_2dRenderer->begin();
 	// wipe the screen to the background colour
 	clearScreen();
 	float newcam1 = 0;
@@ -90,7 +91,7 @@ void TowerofDameonApp::draw()
 	//m_keeprenderer->setCameraPos(m_cameraX, m_cameraY);
 
 	// begin drawing sprites
-	m_2dRenderer->begin();
+	
 
 	m_tower->draw(m_2dRenderer,gamestate,m_timer, m_font);
 
