@@ -21,7 +21,6 @@ public:
 	virtual void insertfirst(const h& object) = 0;
 	virtual void insertlast(const h& object) = 0;
 	virtual void deleteNode(const h& object) = 0;
-	virtual void sort() = 0;
 	iterator<h> begin();
 	iterator<h> end();
 	list();
@@ -123,7 +122,7 @@ template<typename h>
 void list<h>::initialize()
 {
 	count = 0;
-	first = last;
+	first = nullptr;
 	last = nullptr;
 }
 template<typename h>

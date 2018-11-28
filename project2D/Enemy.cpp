@@ -66,7 +66,7 @@ Enemy::Enemy()
 
 
 
-Enemy::Enemy(std::string name, Attack otherlistofattacks[3], float health, float def, float str, int minAcc, int maxAcc, int placement)
+Enemy::Enemy(std::string name, Attack otherlistofattacks[3], float health, float def, float str, int minAcc, int maxAcc)
 {
 	//(Stats:.. Can be changed later)
 	mHealth = health;
@@ -74,7 +74,6 @@ Enemy::Enemy(std::string name, Attack otherlistofattacks[3], float health, float
 	mStrength = str;
 	mAccuracy.min = minAcc;
 	mAccuracy.max = maxAcc;
-	mPlacement = placement;
 
 	this->name = name;
 	for (int i = 0; i <= 2; i++)
@@ -82,20 +81,6 @@ Enemy::Enemy(std::string name, Attack otherlistofattacks[3], float health, float
 		listofattacks[i] = otherlistofattacks[i];
 	}
 
-}
-
-//This is comparing the placement of the enemies, used in sort()
-//If 1 <= 2, then 1 will be fought before 2.
-bool Enemy::operator<=(Enemy rhs)
-{
-	if (this->mPlacement <= rhs.mPlacement)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 }
 
 bool Enemy::operator!=(Enemy rhs)
