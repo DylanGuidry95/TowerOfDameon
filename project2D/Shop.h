@@ -22,7 +22,7 @@ public:
 	void viewAttacks();
 	void viewArmor();
 	void draw(aie::Renderer2D*,int timer,aie::Font*);
-	const char* speak(int num);
+	const char* update(int num);
 	int talk;
 	enum storestate {welcome,sell,viewItems,viewDefenseItems,viewAttackItems,viewUpgrades};
 	storestate shopstate = welcome;	
