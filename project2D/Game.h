@@ -18,7 +18,7 @@ public:
 	void shop(Hero*&);
 	void initializeshop();
 	Shop item_Shop;
-	void ladder();
+	void initializeladder();
 	const char* speak(int num);
 	void draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*);
 	
