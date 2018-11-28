@@ -18,11 +18,8 @@ public:
 
 	Enemy();
 
-	Enemy(std::string name, Attack listofattacks[3], float health, float def, float str, int minAcc, int maxAcc, int placement);
+	Enemy(std::string name, Attack listofattacks[3], float health, float def, float str, int minAcc, int maxAcc);
 	bool operator <= (Enemy rhs);
 	bool operator != (Enemy rhs);
 	bool operator == (Enemy rhs);
-
-private:
-	int mPlacement;
 };
