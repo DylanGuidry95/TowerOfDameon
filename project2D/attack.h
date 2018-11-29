@@ -2,14 +2,14 @@
 #include <string>
 struct Attack
 {
-	std::string name;
+	const char*name;
 	float mDamage;
 	int usage;
 	Attack()
 	{
 
 	}
-	Attack(std::string othername, float number,int usagenum)
+	Attack(const char* othername, float number,int usagenum)
 	{
 		name = othername;
 		mDamage = number;
