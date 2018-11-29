@@ -24,7 +24,6 @@ public:
 	
 	enum current { newGame,inShop, inBattle, inContinue };
 	current gamestate;
-	current shopstate;
 	void text(const char*);
 	//the combat:
 	void battleladder();
