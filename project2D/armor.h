@@ -3,10 +3,10 @@
 #include <string>
 struct Armor
 {
-	std::string name;
+	const char* name;
 	float defenseBoost;
 	float health_Value;
 	float strength_Value;
 	Armor();
-	Armor(std::string name,float defense, float health, float strength);
+	Armor(const char* name,float defense, float health, float strength);
 };

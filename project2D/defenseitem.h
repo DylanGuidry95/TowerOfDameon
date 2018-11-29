@@ -11,7 +11,7 @@ struct DefenseItem : Item
 	//Armor that the defense item has
 	Armor suit;
 	DefenseItem();
-	DefenseItem(std::string nameofitem, int costofitem, Armor item);
+	DefenseItem(const char* nameofitem, int costofitem, Armor item);
 	friend std::ostream& operator<<(std::ostream& os, const DefenseItem item);
 	void viewstats();
 };
