@@ -11,6 +11,39 @@ Shop::Shop(std::vector<DefenseItem> armor, std::vector<AttackItem> attack)
 	attackstock = attack;
 }
 
+const char * Shop::speak(int num)
+{
+	const char* say;
+	switch (shopstate)
+	{
+	case(welcome):
+	{
+		say = "Asher: Ah! Well if it isn't the warrior who dare challanges Dameon. How may I aid you today my suicidal friend?";
+		return say;
+	}
+	case(viewAttackItems):
+	{
+		say = "Asher: Need a new move eh? I guess spamming the attack button wasn't enough?";
+		return say;
+	}
+	case(viewDefenseItems):
+	{
+		say = "Asher: Please enjoy one of our mostly legal premium performance enhancing elixers.";
+		return say;
+	}
+	case(viewUpgrades):
+	{
+		say = "Asher: So you need to get more physically fit? Hehe, why workout when you can pay me?";
+		return say;
+	}
+	case(sell):
+	{
+		say = "Asher: Thank you,thank you! A fine choice my friend. Will you be buying more?";
+		return say;
+	}
+	}
+}
+
 AttackItem Shop::sellattack(int choice)
 {
 	AttackItem item_Sold = attackstock.at(choice);
