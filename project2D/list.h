@@ -34,7 +34,7 @@ private:
 template<typename h>
 iterator<h> list<h>::begin()
 {
-	iterator<h> iterator(*this->first);
+	iterator<h> iterator =&(*this->first);
 	return iterator;
 }
 

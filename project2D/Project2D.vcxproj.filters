@@ -48,10 +48,10 @@
     <ClCompile Include="Ladder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shop.cpp">
+    <ClCompile Include="TowerofDameonApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TowerofDameonApp.cpp">
+    <ClCompile Include="Shop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TowerofDameonApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ladder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
