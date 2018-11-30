@@ -60,7 +60,7 @@ public:
 	
 	//Initializes hero with base stats
 	void initalizeHero();
-	void AssignStartingPoints(std::string othername);
+	void AssignStartingPoints(int);
 
 	bool upgrade(int pchoice);
 
