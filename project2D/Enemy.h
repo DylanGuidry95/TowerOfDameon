@@ -11,7 +11,7 @@ public:
 	void takeDamage(float) override;
 
 	//The fight function calculates the total damage output of the enemy that is about to attack and then calls the take damage function with that value as its argument
-	void fight(Character*, Attack) override;
+	void fight(Character&, int attack) override;
 
 	//Raises the enemy's defense by 20
 	void defend();
@@ -22,4 +22,9 @@ public:
 	bool operator <= (Enemy rhs);
 	bool operator != (Enemy rhs);
 	bool operator == (Enemy rhs);
+	const Enemy & Enemy::operator=(Character & otherenemy)
+	{
+		this->mHealth = otherenemy.getHealth();
+		return *this;
+	}
 };

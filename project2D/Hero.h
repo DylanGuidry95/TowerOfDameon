@@ -7,6 +7,7 @@
 #include <vector>
 #include "armor.h"
 #include "Shop.h"
+#include "list.h"
 
 class Hero : public Character
 {
@@ -22,13 +23,18 @@ public:
 	//The player has two lists that store their previously bought attacks and armor for later use
 	std::vector<Armor> armorBag;
 	std::vector<Attack> attackBag;
+	enum current {Attacking,Defending,stats,blocked};
+	current playerstate;
+	void drawtext(aie::Renderer2D*,aie::Font*,int);
+	void drawsprite(aie::Renderer2D*renderer,int timer,aie::Font* font);
+	void draw(aie::Renderer2D*renderer, int timer, aie::Font* font,int choice = 0);
 
 	//The takeDamage function is called in the fight function and is only used to 
 	//decrement the enemy's health
 	void takeDamage(float) override;
 
 	//The fight function calculates the total damage output of the enemy that is about to attack and then calls the take damage function with that value as its argument
-	void fight(Character*, Attack) override;
+	void fight(Character&, int attack) override;
 
 	//Prints the player's current statistics (accuracy, health, strength, defense) to the window
 	void viewStats();
@@ -58,7 +64,9 @@ public:
 
 	bool upgrade(int pchoice);
 
-	void update();
+	int viewgold();
+	const char* getAttackName(int num);
+	
 
 	std::string getName();
 };

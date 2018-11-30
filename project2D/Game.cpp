@@ -25,21 +25,21 @@ void Game::initializeshop()
 	Armor defense_potion("Defense Potion", 5.0, 0.0, 0.0);
 
 
-	DefenseItem bestArmor_Item("Drink Of The Gods", 1200, bestArmor);
-	DefenseItem exhealing_Elixer_Item("Fairy Elixer", 200, exhealing_Elixer);
-	DefenseItem healing_Elixer_Item("Ahlian Water", 150, healing_Elixer);
+	DefenseItem bestArmor_Item("Drink Of The Gods \n Price: 1200g\n  Level: 5", 1200, bestArmor);
+	DefenseItem exhealing_Elixer_Item("Fairy Elixer \n Price: 200g\n  Level: 3", 200, exhealing_Elixer);
+	DefenseItem healing_Elixer_Item("Ahlian Water \n Price: 150g\n  Level: 3", 150, healing_Elixer);
 
-	DefenseItem exhealing_Potion_Item("Super Health Potion", 110, exhealing_Potion);
-	DefenseItem  healing_Potion_Item("Health Potion", 50, healing_Potion);
+	DefenseItem exhealing_Potion_Item("Super Health Potion \n Price: 110g\n  Level: 2", 110, exhealing_Potion);
+	DefenseItem  healing_Potion_Item("Health Potion \n Price: 50g\n  Level: 1", 50, healing_Potion);
 
-	DefenseItem exstrength_Elixer_Item("Titan Elixer", 200, exstrength_Elixer);
-	DefenseItem strength_Elixer_Item("Goliath Elixer", 150, strength_Elixer);
+	DefenseItem exstrength_Elixer_Item("Titan Elixer \n Price: 200g\n  Level: 2", 200, exstrength_Elixer);
+	DefenseItem strength_Elixer_Item("Goliath Elixer \n Price: 150g\n  Level: 1", 150, strength_Elixer);
 
-	DefenseItem exstrength_Potion_Item("Mighty Potion", 110, exstrength_potion);
-	DefenseItem strength_Potion_Item("Strength Potion", 50, strength_Potion);
+	DefenseItem exstrength_Potion_Item("Mighty Potion \n Price: 110g\n  Level: 2", 110, exstrength_potion);
+	DefenseItem strength_Potion_Item("Strength Potion \n Price: 50g\n  Level: 1", 50, strength_Potion);
 
-	DefenseItem exdefense_Potion_Item("Super Defense Potion", 110, exdefense_Potion);
-	DefenseItem defense_Potion_Item("Defense Potion", 50, defense_potion);
+	DefenseItem exdefense_Potion_Item("Super Defense Potion \n Price: 110g\n  Level: 2", 110, exdefense_Potion);
+	DefenseItem defense_Potion_Item("Defense Potion \n Price: 50g\n  Level: 1", 50, defense_potion);
 
 
 	armor_Stock.push_back(defense_Potion_Item);
@@ -70,17 +70,17 @@ void Game::initializeshop()
 
 
 
-	AttackItem basicitem1("Close Combat", 50, basic1);
-	AttackItem basicitem2("Focus Punch", 50, basic2);
-	AttackItem basicitem3("Force Palm", 50, basic3);
+	AttackItem basicitem1("Name: Close Combat \n Price: 50g\n  Level: 1", 50, basic1);
+	AttackItem basicitem2("Focus Punch \n Price: 50g \n  Level: 1", 50, basic2);
+	AttackItem basicitem3("Force Palm \n Price: 50g\n  Level: 1", 50, basic3);
 
-	AttackItem intermediateitem1("Axle Combination", 150, intermediate1);
-	AttackItem intermediateitem2("Lightning Kick", 150, intermediate2);
-	AttackItem intermediateitem3("Sonic Rush", 150, intermediate3);
+	AttackItem intermediateitem1("Axle Combination \n Price: 150g\n  Level: 2", 150, intermediate1);
+	AttackItem intermediateitem2("Lightning Kick \n Price: 150g\n  Level: 2", 150, intermediate2);
+	AttackItem intermediateitem3("Sonic Rush \n Price: 150g\n  Level: 2", 150, intermediate3);
 
-	AttackItem ultimateitem1("Revenger Assault", 200, ultimate1);
-	AttackItem ultimateitem2("Earth Shattering Strike", 200, ultimate2);
-	AttackItem ultimateitem3("Nova Strike", 200, ultimate3);
+	AttackItem ultimateitem1("Revenger Assault \n Price: 200g\n  Level: 3", 200, ultimate1);
+	AttackItem ultimateitem2("Earth Shattering Strike \n Price: 200g\n  Level: 3", 200, ultimate2);
+	AttackItem ultimateitem3("Nova Strike \n Price: 200g\n  Level: 3", 200, ultimate3);
 
 
 	attack_stock.push_back(basicitem1);
@@ -195,22 +195,26 @@ void Game::initializeladder()
 
 void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
 {
-	Shop::storestate a = Shop::storestate::welcome;
 	switch (state)
 	{
-	case inShop:
-	{
-		item_Shop.draw(renderer, timer, font);
-		break;
-	}
-	case inBattle:
-	{
+    case inShop:
+    {
+      item_Shop.draw(renderer, timer, font);
+      break;
+    }
+    case inBattle:
+    {
 
-	}
-	case inContinue:
-	{
+    }
+    case inContinue:
+    {
 
-	}
+    }
+    case newGame:
+    {
+      break;
+    }
+  
 	}
 }
 
@@ -230,10 +234,101 @@ void Game::shop(Hero* &player)
 {
 	switch (item_Shop.shopstate)
 	{
-	case 0: 
-	{
+		case Shop::welcome: 
+		{
+			if (ImGui::Button("Attack Items", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewAttackItems;
+			}
+			if (ImGui::Button("Defense Items", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewDefenseItems;
+			}
+			break;
+		}
+		case Shop::viewAttackItems:
+		{
+			if (ImGui::Button(item_Shop.viewAttacks(0), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop,0);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(1), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 1);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(2), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 2);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(3), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 3);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(4), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 4);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(5), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 5);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(6), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 6);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(7), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 7);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button(item_Shop.viewAttacks(8), ImVec2(200, 100)))
+			{
+				player->buy_Attack(item_Shop, 8);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+		}
+		case Shop::viewDefenseItems:
+		{
 		
-	}
+		}
+		case Shop::viewUpgrades:
+		{
+		
+		}
+		case Shop::sell:
+		{
+			if (ImGui::Button("Buy More", ImVec2(200, 100)))
+			{
+				item_Shop.shopstate = Shop::welcome;
+				break;
+			}
+			if (ImGui::Button("Leave Shop", ImVec2(200, 100)))
+			{
+				gamestate = inBattle;
+				break;
+			}
+		}
+		case Shop::bought:
+		{
+			item_Shop.shopstate = Shop::welcome;
+			break;
+		}
 	}
 
 	/*system("cls");

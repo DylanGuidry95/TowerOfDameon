@@ -11,7 +11,8 @@ struct AttackItem:Item
 	Attack newattack;
 
 	AttackItem();
-	AttackItem(std::string nameofitem, int costofitem, Attack item);
+	AttackItem(const char* nameofitem, int costofitem, Attack item);
 	friend std::ostream& operator<<(std::ostream& os, const AttackItem item);
 	void viewstats();
+	bool AttackItem::operator==(AttackItem& other);
 };
