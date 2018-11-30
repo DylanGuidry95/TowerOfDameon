@@ -107,5 +107,8 @@
     <ClInclude Include="TowerofDameonApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ladder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

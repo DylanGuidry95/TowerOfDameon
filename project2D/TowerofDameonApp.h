@@ -15,7 +15,6 @@ protected:
 	aie::Font*			m_font;
 
 	Game* m_tower;
-	Hero* player;
 	float m_cameraX, m_cameraY;
 	float m_timer;
 	enum mode { newGame,inShop, inBattle, inContinue };
