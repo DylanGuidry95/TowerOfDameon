@@ -4,7 +4,7 @@ DefenseItem::DefenseItem()
 {
 }
 
-DefenseItem::DefenseItem(std::string nameofitem, int costofitem, Armor item)
+DefenseItem::DefenseItem(const char* nameofitem, int costofitem, Armor item)
 {
 	name = nameofitem;
 	mCost = costofitem;
