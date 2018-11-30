@@ -54,7 +54,7 @@
     <ClCompile Include="Shop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Continue.cpp">
+    <ClCompile Include="newGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,7 +113,7 @@
     <ClInclude Include="ladder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Continue.h">
+    <ClInclude Include="newGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
