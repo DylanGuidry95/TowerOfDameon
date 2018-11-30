@@ -173,6 +173,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="Ladder.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="newGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="TowerofDameonApp.cpp" />
   </ItemGroup>
@@ -191,6 +192,7 @@
     <ClInclude Include="iterator.h" />
     <ClInclude Include="ladder.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="newGame.h" />
     <ClInclude Include="nodetype.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="TowerofDameonApp.h" />

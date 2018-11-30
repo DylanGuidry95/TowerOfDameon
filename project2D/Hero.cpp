@@ -138,208 +138,123 @@ void Hero::initalizeHero()
 	listofattacks[2] = starter3;
 }
 
-void Hero::AssignStartingPoints(std::string othername)
+void Hero::AssignStartingPoints(int op)
 {
-	int count = 0;
-	int tempChoice = 0;
-	while (count != 2)
+	std::cin >> op;
+
+	switch (op)
 	{
-		char op;
-		if (tempChoice > 0)
+	case (0):
+	{
+		return;
+	}
+
+	case (1):
+	{
+		char temp;
+		std::cout << "\nAre you sure you want to use this skill point here.\n";
+		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+
+		std::cin >> temp;
+
+		if (temp == 'y' || temp == 'Y')
 		{
-			system("cls");
-			std::cout << "Enter (1) to level up your Health\n";
-			std::cout << "Enter (2) to level up your Defense\n";
-			std::cout << "Enter (3) to level up your Accuracy\n";
-			std::cout << "Enter (4) to level up your Strength\n\n";
+			healthLVL++;
 
-			std::cout << "Enter (0) to not apply a skill point\n\n";
-		}
-		else if (count < 1)
-		{
-			std::cout << "Please input a name for your hero: "; std::cin >> othername;
-			name = othername;
-			std::cout << "Hello " << name << ", to start off i'm going to give you 2 free skill points.\n";
-			std::cout << "You can use them however you want, or don't use them at all.\n";
-			system("pause");
-
-			std::cout << "\nEnter (1) to level up your Health\n";
-			std::cout << "Enter (2) to level up your Defense\n";
-			std::cout << "Enter (3) to level up your Accuracy\n";
-			std::cout << "Enter (4) to level up your Strength\n\n";
-
-			std::cout << "Enter (0) to not apply a skill point\n\n";
-		}
-
-		if (count == 1)
-		{
-			system("cls");
-			std::cout << "You have 1 skill point left.\n\n";
-
-			std::cout << "Enter (1) to level up your Health\n";
-			std::cout << "Enter (2) to level up your Defense\n";
-			std::cout << "Enter (3) to level up your Accuracy\n";
-			std::cout << "Enter (4) to level up your Strength\n\n";
-
-			std::cout << "Enter (0) to not apply a skill point\n\n";
-		}
-
-		std::cin >> op;
-
-		switch (op)
-		{
-		case '0':
-		{
-			char temp;
-			std::cout << "\nAre you sure you don't want to use this skill point.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n\n";
-
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
+			if (healthLVL == 1)
 			{
-				break;
+				mHealth = 150;
 			}
-			else
+
+			if (healthLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mHealth = 200;
 			}
+
+			break;
 		}
+	}
 
-		case '1':
+	case (2):
+	{
+		char temp;
+		std::cout << "\nAre you sure you want to use this skill point here.\n";
+		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+
+		std::cin >> temp;
+
+		if (temp == 'y' || temp == 'Y')
 		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+			defenseLVL++;
 
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
+			if (defenseLVL == 1)
 			{
-				healthLVL++;
-
-				if (healthLVL == 1)
-				{
-					mHealth = 150;
-				}
-
-				if (healthLVL == 2)
-				{
-					mHealth = 200;
-				}
-
-				break;
+				mDefense = 10;
 			}
-			else
+
+			if (defenseLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mDefense = 15;
 			}
+
+			break;
+		}
+	}
+
+	case (3):
+	{
+		char temp;
+		std::cout << "\nAre you sure you want to use this skill point here.\n";
+		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+
+		std::cin >> temp;
+
+		if (temp == 'y' || temp == 'Y')
+		{
+			accLVL++;
+
+			if (accLVL == 1)
+			{
+				mAccuracy.min = 26;
+				mAccuracy.max = 88;
+			}
+
+			if (accLVL == 2)
+			{
+				mAccuracy.min = 22;
+				mAccuracy.max = 86;
+			}
+
+			break;
 		}
 
-		case '2':
+	}
+
+	case (4):
+	{
+		char temp;
+		std::cout << "\nAre you sure you want to use this skill point here.\n";
+		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+
+		std::cin >> temp;
+
+		if (temp == 'y' || temp == 'Y')
 		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+			strengthLVL++;
 
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
+			if (strengthLVL == 1)
 			{
-				defenseLVL++;
-
-				if (defenseLVL == 1)
-				{
-					mDefense = 10;
-				}
-
-				if (defenseLVL == 2)
-				{
-					mDefense = 15;
-				}
-
-				break;
+				mStrength = .10f;
 			}
-			else
+
+			if (strengthLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mStrength = .15f;
 			}
+
+			break;
 		}
-
-		case '3':
-		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
-			{
-				accLVL++;
-
-				if (accLVL == 1)
-				{
-					mAccuracy.min = 26;
-					mAccuracy.max = 88;
-				}
-
-				if (accLVL == 2)
-				{
-					mAccuracy.min = 22;
-					mAccuracy.max = 86;
-				}
-
-				break;
-			}
-			else
-			{
-				tempChoice++;
-				system("cls");
-				continue;
-			}
-		}
-
-		case '4':
-		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
-			{
-				strengthLVL++;
-
-				if (strengthLVL == 1)
-				{
-					mStrength = .10f;
-				}
-
-				if (strengthLVL == 2)
-				{
-					mStrength = .15f;
-				}
-
-				break;
-			}
-			else
-			{
-				tempChoice++;
-				system("cls");
-				continue;
-			}
-		}
-		}
-		system("cls");
-		count++;
+	}
 	}
 }
 
