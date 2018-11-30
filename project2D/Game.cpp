@@ -198,19 +198,36 @@ void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
 	Shop::storestate a = Shop::storestate::welcome;
 	switch (state)
 	{
-	case inShop:
-	{
-		item_Shop.draw(renderer, timer, font);
-		break;
-	}
-	case inBattle:
-	{
+    case inShop:
+    {
+      item_Shop.draw(renderer, timer, font);
+      break;
+    }
+    case inBattle:
+    {
 
-	}
-	case inContinue:
-	{
+    }
+    case inContinue:
+    {
 
-	}
+    }
+    case newGame:
+    {
+      break;
+    }
+    case inShop:
+    {
+      item_Shop.draw(renderer, timer, font);
+      break;
+    }
+    case inBattle:
+    {
+      break;
+    }
+    case inContinue:
+    {
+      break;
+    }
 	}
 }
 

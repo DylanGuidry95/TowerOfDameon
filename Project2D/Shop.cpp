@@ -17,7 +17,7 @@ const char * Shop::speak(int num)
 	{
 	case(welcome):
 	{
-		say = "Asher: Ah! Well if it isn't the warrior who dare challanges Dameon. How may I aid you today my suicidal friend?";
+		say = "Asher: Ah! Well if it isn't the warrior who dare challanges Dameon. How may I aid you today?";
 		return say;
 	}
 	case(viewAttackItems):

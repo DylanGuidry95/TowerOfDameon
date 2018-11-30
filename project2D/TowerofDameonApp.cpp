@@ -69,7 +69,7 @@ void TowerofDameonApp::update(float deltaTime)
 		}
 		case(inContinue):
 		{
-
+			break;
 		}
 		}
 
