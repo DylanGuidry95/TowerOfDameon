@@ -9,10 +9,10 @@ struct Attack
 	{
 
 	}
-	Attack(const char* othername, float number,int usagenum)
+	Attack(const char* othername, float damage,int usagenum)
 	{
 		name = othername;
-		mDamage = number;
+		mDamage = damage;
 		usage = usagenum;
 	}
 };
