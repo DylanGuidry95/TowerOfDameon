@@ -20,7 +20,7 @@ void Enemy::takeDamage(float damageTaken)
 }
 
 
-void Enemy::fight(Character* foe, Attack hit)
+void Enemy::fight(Character& foe, int attack)
 {
 	float damageTaken;
 
@@ -38,17 +38,17 @@ void Enemy::fight(Character* foe, Attack hit)
 	//if the random accuracy value is more than the min required to land a hit and less than the maximum value required base damage is dealt
 	else if (Accuracy_Value > mAccuracy.min && Accuracy_Value < mAccuracy.max)
 	{
-		damageTaken = hit.mDamage + (hit.mDamage * mStrength);
+		damageTaken = listofattacks[attack].mDamage + (listofattacks[attack].mDamage * mStrength);
 
-		foe->takeDamage(damageTaken);
+		foe.takeDamage(damageTaken);
 	}
 
 	//if the random accuracy value is more than the max value required to land a hit the enemy's damage is doubled
 	else if (Accuracy_Value > mAccuracy.max)
 	{
-		damageTaken = (hit.mDamage + (hit.mDamage * mStrength) * 2);
+		damageTaken = (listofattacks[attack].mDamage + (listofattacks[attack].mDamage * mStrength) * 2);
 
-		foe->takeDamage(damageTaken);
+		foe.takeDamage(damageTaken);
 	}
 }
 

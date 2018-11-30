@@ -4,13 +4,23 @@
 
 void Hero::takeDamage(float damageTaken)
 {
-	damageTaken = damageTaken - mDefense;
+	if (playerstate == Defending)
+	{
+		mDefense = mDefense + 30;
+		damageTaken = damageTaken - mDefense;
+		mDefense -= 30;
+	}
+	else
+	{
+		damageTaken = damageTaken - mDefense;
+	}
+	
 
 	//checks if the total damage output is less than or equal to zero if so hero recieves no damage
 	if (damageTaken <= 0)
 	{
 
-		std::cout << name << " blocked!" << std::endl;
+		playerstate = blocked;
 	}
 
 	if (mHealth > 0)
@@ -19,14 +29,14 @@ void Hero::takeDamage(float damageTaken)
 	}
 }
 
-void Hero::fight(Character*foe, Attack hit)
+void Hero::fight(Character&foe, int attack)
 {
 	float damageTaken;
 
 	srand(time(NULL));
 
 	//Creates a random value used to measure accuracy
-	int Accuracy_Value = rand() % 100;
+	int Accuracy_Value = 40;//rand() % 100;
 
 	//if the random accuracy value is less than the min required to land a hit no damage is dealt
 	if (Accuracy_Value < mAccuracy.min)
@@ -37,17 +47,17 @@ void Hero::fight(Character*foe, Attack hit)
 	//if the random accuracy value is more than the min required to land a hit and less than the maximum value required base damage is dealt
 	else if (Accuracy_Value > mAccuracy.min && Accuracy_Value < mAccuracy.max)
 	{
-		damageTaken = hit.mDamage + (hit.mDamage * mStrength);
+		damageTaken = listofattacks[attack].mDamage + (listofattacks[attack].mDamage * mStrength);
 
-		foe->takeDamage(damageTaken);
+		foe.takeDamage(damageTaken);
 	}
 
 	//if the random accuracy value is more than the max value required to land a hit the player's damage is doubled
 	else if (Accuracy_Value > mAccuracy.max)
 	{
-		damageTaken = (hit.mDamage + (hit.mDamage * mStrength) * 2);
+		damageTaken = (listofattacks[attack].mDamage + (listofattacks[attack].mDamage * mStrength) * 2);
 
-		foe->takeDamage(damageTaken);
+		foe.takeDamage(damageTaken);
 	}
 }
 
@@ -114,12 +124,18 @@ void Hero::unequipAttack(int choice)
 //needs to be looked at
 void Hero::initalizeHero()
 {
-	mGold = 99999;
+	mGold = 4;
 	mHealth = 100;
 	mDefense = 5;
 	mStrength = .05f;
 	mAccuracy.min = 30;
 	mAccuracy.max = 90;
+	Attack starter1("Flail", 5, 10);
+	Attack starter2("Quick Attack", 10, 5);
+	Attack starter3("Fury Rush", 30, 2);
+	listofattacks[0] = starter1;
+	listofattacks[1] = starter2;
+	listofattacks[2] = starter3;
 }
 
 void Hero::AssignStartingPoints(std::string othername)
@@ -331,41 +347,66 @@ bool Hero::upgrade(int pchoice)
 {
 	switch (pchoice)
 	{
-	case(1):
-	{
-		if (healthLVL == 5)
-			return false;
-		else
-		mHealth += 100;
-	}
-	case (2):
-	{
-		if (defenseLVL == 5)
-			return false;
-		else
-		mDefense += 5;
-	}
-	case(3):
-	{
-		if (strengthLVL == 5)
-			return false;
-		else
-		mStrength += .05;
-	}
-	case(4):
-	{
-		if (accLVL == 5)
-			return false;
-		else
-		mAccuracy.max -= 2;
-		mAccuracy.min -= 4;
-	}
+		case(1):
+		{
+			if (healthLVL == 5)
+				return false;
+			else
+			mHealth += 100;
+			mGold -= 500;
+		}
+		case (2):
+		{
+			if (defenseLVL == 5)
+				return false;
+			else
+			mDefense += 5;
+			mGold -= 500;
+		}
+		case(3):
+		{
+			if (strengthLVL == 5)
+				return false;
+			else
+			mStrength += .05;
+			mGold -= 500;
+		}
+		case(4):
+		{
+			if (accLVL == 5)
+				return false;
+			else
+			mAccuracy.max -= 2;
+			mAccuracy.min -= 4;
+			mGold -= 500;
+		}
 	}
 	return true;
 }
 
-void Hero::update()
+int Hero::viewgold()
 {
+	return mGold;
+}
+
+const char * Hero::getAttackName(int num)
+{
+	const char* ptr;
+	switch(num)
+	{
+		case 0:
+		{
+			return ptr = listofattacks[0].name; 
+		}
+		case 1:
+		{
+			return ptr = listofattacks[1].name;
+		}
+		case 2:
+		{
+			return ptr = listofattacks[2].name;
+		}
+	}
 }
 
 std::string Hero::getName()
@@ -389,4 +430,46 @@ void Hero::buy_Armor(Shop& store, int choice)
 	DefenseItem item_Bought = store.selldefense(choice);
 	mGold = mGold - item_Bought.mCost;
 	armorBag.push_back(item_Bought.suit);
+}
+
+void Hero::drawtext(aie::Renderer2D *renderer, aie::Font*font,int choice)
+{
+	switch (playerstate)
+	{
+	case Attacking:
+	{
+		renderer->drawText(font, "You used", 300, 100, 100);
+		renderer->drawText(font, listofattacks[choice].name, 400, 100, 100);
+		break;
+	}
+	case Defending:
+	{
+		renderer->drawText(font, "You raised your gaurd!", 300, 100, 100);
+		break;
+	}
+	case blocked:
+	{
+		renderer->drawText(font, "You blocked their attack!", 300, 100, 100);
+		break;
+	}
+
+	}
+}
+
+void Hero::drawsprite(aie::Renderer2D * renderer, int timer, aie::Font * font)
+{
+}
+
+void Hero::draw(aie::Renderer2D*renderer, int timer, aie::Font* font,int choice)
+{
+	/*renderer->setUVRect(0.f, 0.f, 1, 1);
+	renderer->drawSprite(shop, 600, 450, 500, 583);
+
+	renderer->drawSprite(hero, 600, 400, 57, 92);*/
+
+
+	drawtext(renderer, font,choice);
+	drawsprite(renderer, timer, font);
+	//, 300, 100, 100);
+
 }
