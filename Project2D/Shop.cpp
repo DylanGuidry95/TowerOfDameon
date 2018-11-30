@@ -76,7 +76,6 @@ void Shop::draw(aie::Renderer2D*renderer, int timer,aie::Font* font)
 {
 	renderer->setUVRect(0.f, 0.f, 1, 1);
 	renderer->drawSprite(shop, 600, 450, 500, 583);
-
 	renderer->drawSprite(hero, 600, 400, 57, 92);
 
 	renderer->setUVRect(int(timer * 10) % 3 / 2.9f, 0.f, .33, 1);
