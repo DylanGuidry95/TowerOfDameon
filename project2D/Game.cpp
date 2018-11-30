@@ -183,11 +183,15 @@ void Game::initializeladder()
 	Enemy* enemy5 = new Enemy("George Sands", georgeAttacks,			  400.0, 40.0,.16, 30,95);
 	Enemy* boss = new Enemy("Dameon The Necromancer", dameonAttacks,	  400.0, 24.0, .3, 35,80);
 
-	unorderedList<Enemy> enemyList;
 
-	enemyList.initialize();
-
-	enemyList.insertlast(*enemy1);
+	enemyLadder.initialize();
+	
+	enemyLadder.insertlast(*enemy1);
+	enemyLadder.insertlast(*enemy2);
+	enemyLadder.insertlast(*enemy3);
+	enemyLadder.insertlast(*enemy4);
+	enemyLadder.insertlast(*enemy5);
+	currentenemy= enemyLadder.begin();
 
 }
 
@@ -204,7 +208,7 @@ void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
     }
     case inBattle:
     {
-
+		player->draw(renderer, timer, font, choice);
     }
     case inContinue:
     {
@@ -218,10 +222,68 @@ void Game::draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*font)
 	}
 }
 
-
-void Game::battleladder()
+void Game::battleladder(Hero*&player)
 {
-
+	switch (ladderstate)
+	{
+		case playerturn:
+		{
+			if (ImGui::Button("Attack", ImVec2(100, 100)))
+			{
+				ladderstate = viewattacks;
+				break;
+			}
+			if (ImGui::Button("Defend", ImVec2(100, 100)))
+			{
+				ladderstate = defending;
+				break;
+			}
+			if (ImGui::Button("View Stats", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewUpgrades;
+				break;
+			}
+			break;
+		}
+		case enemyturn:
+		{
+			break;
+		}
+		case viewattacks:
+		{
+			if (ImGui::Button(player->getAttackName(0), ImVec2(200, 100)))
+			{
+				choice = 0;
+				player->playerstate = Hero::Attacking;
+				ptr = &(*currentenemy);
+				player->fight(*ptr, 0);
+				*currentenemy = *ptr;
+				break;
+			}
+			if (ImGui::Button(player->getAttackName(1), ImVec2(200, 100)))
+			{
+				choice = 1;
+				player->playerstate = Hero::Attacking;
+				ptr = &*currentenemy;
+				player->fight(*ptr, 1);
+				break;
+			}
+			if (ImGui::Button(player->getAttackName(2), ImVec2(200, 100)))
+			{
+				choice = 2;
+				player->playerstate = Hero::Attacking;
+				ptr = &*currentenemy;
+				player->fight(*currentenemy, 2);
+				break;
+			}
+			break;
+		}
+		case defending:
+		{
+			player->playerstate = Hero::Defending;
+			ladderstate = enemyturn;
+		}
+		}
 }
 
 
@@ -232,6 +294,7 @@ Game::Game()
 
 void Game::shop(Hero* &player)
 {
+
 	switch (item_Shop.shopstate)
 	{
 		case Shop::welcome: 
@@ -239,10 +302,36 @@ void Game::shop(Hero* &player)
 			if (ImGui::Button("Attack Items", ImVec2(100, 100)))
 			{
 				item_Shop.shopstate = Shop::viewAttackItems;
+				break;
 			}
 			if (ImGui::Button("Defense Items", ImVec2(100, 100)))
 			{
 				item_Shop.shopstate = Shop::viewDefenseItems;
+				break;
+			}
+			if (ImGui::Button("Upgrade Stats", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewUpgrades;
+				break;
+			}
+			break;
+		}
+		case Shop::wait:
+		{
+			if (ImGui::Button("Attack Items", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewAttackItems;
+				break;
+			}
+			if (ImGui::Button("Defense Items", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewDefenseItems;
+				break;
+			}
+			if (ImGui::Button("Upgrade Stats", ImVec2(100, 100)))
+			{
+				item_Shop.shopstate = Shop::viewUpgrades;
+				break;
 			}
 			break;
 		}
@@ -250,72 +339,318 @@ void Game::shop(Hero* &player)
 		{
 			if (ImGui::Button(item_Shop.viewAttacks(0), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop,0);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(0) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 0);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(1), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 1);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(1) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 0);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(2), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 2);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(2) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 2);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(3), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 3);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(3) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 3);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(4), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 4);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(4) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 4);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(5), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 5);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(5) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 5);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(6), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 6);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(6) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 6);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(7), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 7);
-				item_Shop.shopstate = Shop::sell;
-				break;
+				if (item_Shop.viewAttacks(7) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 7);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
 			}
 			if (ImGui::Button(item_Shop.viewAttacks(8), ImVec2(200, 100)))
 			{
-				player->buy_Attack(item_Shop, 8);
-				item_Shop.shopstate = Shop::sell;
+				if (item_Shop.viewAttacks(8) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 8);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button("Back", ImVec2(200, 100)))
+			{
+				item_Shop.shopstate = Shop::wait;
 				break;
 			}
+			break;
 		}
 		case Shop::viewDefenseItems:
 		{
-		
+			if (ImGui::Button(item_Shop.viewArmor(0), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(0) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 0);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(1), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(1) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 0);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(2), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(2) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Attack(item_Shop, 2);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(3), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(3) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 3);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(4), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(4) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 4);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(5), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(5) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 5);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(6), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(6) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 6);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(7), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewArmor(7) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 7);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(8), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewAttacks(8) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 8);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(9), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewAttacks(9) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 9);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button(item_Shop.viewArmor(10), ImVec2(200, 100)))
+			{
+				if (item_Shop.viewAttacks(10) == "Sold Out")
+				{
+					break;
+				}
+				else
+				{
+					player->buy_Armor(item_Shop, 10);
+					item_Shop.shopstate = Shop::sell;
+					break;
+				}
+			}
+			if (ImGui::Button("Back", ImVec2(200, 100)))
+			{
+				item_Shop.shopstate = Shop::wait;
+				break;
+			}
+			break;
 		}
 		case Shop::viewUpgrades:
 		{
-		
+			if (ImGui::Button("Upgrade Health  \n Cost: 500g", ImVec2(200, 100)))
+			{
+				player->upgrade(1);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button("Upgrade Defense  \n Cost: 500g", ImVec2(200, 100)))
+			{
+				player->upgrade(2);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button("Upgrade Strength  \n Cost: 500g", ImVec2(200, 100)))
+			{
+				player->upgrade(3);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button("Upgrade Accuracy  \n Cost: 500g", ImVec2(200, 100)))
+			{
+				player->upgrade(4);
+				item_Shop.shopstate = Shop::sell;
+				break;
+			}
+			if (ImGui::Button("Back", ImVec2(200, 100)))
+			{
+				item_Shop.shopstate = Shop::wait;
+				break;
+			}
+			break;
 		}
 		case Shop::sell:
 		{
 			if (ImGui::Button("Buy More", ImVec2(200, 100)))
 			{
-				item_Shop.shopstate = Shop::welcome;
+				item_Shop.shopstate = Shop::wait;
 				break;
 			}
 			if (ImGui::Button("Leave Shop", ImVec2(200, 100)))
@@ -323,10 +658,11 @@ void Game::shop(Hero* &player)
 				gamestate = inBattle;
 				break;
 			}
+			break;
 		}
 		case Shop::bought:
 		{
-			item_Shop.shopstate = Shop::welcome;
+			item_Shop.shopstate = Shop::wait;
 			break;
 		}
 	}

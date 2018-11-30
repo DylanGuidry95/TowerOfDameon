@@ -25,8 +25,8 @@ bool TowerofDameonApp::startup()
 	m_tower->initializeshop();
 	m_tower->initializeladder();
 
-	m_tower->player = new Hero;
-	m_tower->player->initalizeHero();
+	player = new Hero;
+	player->initalizeHero();
 	
 	m_cameraX = 0;
 	m_cameraY = 0;
@@ -48,7 +48,7 @@ void TowerofDameonApp::update(float deltaTime)
 	
 	
 	m_timer += deltaTime;
-	gamestate = inBattle;
+	gamestate = inShop;
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
@@ -57,15 +57,15 @@ void TowerofDameonApp::update(float deltaTime)
 		case newGame:
 		{
 			std::string name;
-			m_tower->player->AssignStartingPoints(name);
+			player->AssignStartingPoints(name);
 		}
 		case inShop:
 		{
-			m_tower->shop(m_tower->player);
+			m_tower->shop(player);
 		}
 		case inBattle:
 		{
-			m_tower->battleladder(m_tower->player);
+			m_tower->battleladder();
 		}
 		case(inContinue):
 		{
@@ -93,9 +93,12 @@ void TowerofDameonApp::draw()
 
 	m_tower->draw(m_2dRenderer,gamestate,m_timer*8, m_font);
 
+	
+
 	char fps[32];
 	sprintf_s(fps, 32, "FPS: %i", getFPS());
-	
+	m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
+	m_2dRenderer->drawText(m_font, "Press ESC to quit!", 0, 720 - 64);
 	m_2dRenderer->end();
 
 	/*m_2dRenderer->begin();
