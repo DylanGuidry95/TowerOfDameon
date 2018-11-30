@@ -140,8 +140,6 @@ void Hero::initalizeHero()
 
 void Hero::AssignStartingPoints(int op)
 {
-	std::cin >> op;
-
 	switch (op)
 	{
 	case (0):
@@ -151,14 +149,6 @@ void Hero::AssignStartingPoints(int op)
 
 	case (1):
 	{
-		char temp;
-		std::cout << "\nAre you sure you want to use this skill point here.\n";
-		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-		std::cin >> temp;
-
-		if (temp == 'y' || temp == 'Y')
-		{
 			healthLVL++;
 
 			if (healthLVL == 1)
@@ -172,19 +162,10 @@ void Hero::AssignStartingPoints(int op)
 			}
 
 			break;
-		}
 	}
 
 	case (2):
 	{
-		char temp;
-		std::cout << "\nAre you sure you want to use this skill point here.\n";
-		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-		std::cin >> temp;
-
-		if (temp == 'y' || temp == 'Y')
-		{
 			defenseLVL++;
 
 			if (defenseLVL == 1)
@@ -198,19 +179,11 @@ void Hero::AssignStartingPoints(int op)
 			}
 
 			break;
-		}
 	}
 
 	case (3):
 	{
-		char temp;
-		std::cout << "\nAre you sure you want to use this skill point here.\n";
-		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-		std::cin >> temp;
-
-		if (temp == 'y' || temp == 'Y')
-		{
+	
 			accLVL++;
 
 			if (accLVL == 1)
@@ -226,20 +199,12 @@ void Hero::AssignStartingPoints(int op)
 			}
 
 			break;
-		}
+
 
 	}
 
 	case (4):
 	{
-		char temp;
-		std::cout << "\nAre you sure you want to use this skill point here.\n";
-		std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-		std::cin >> temp;
-
-		if (temp == 'y' || temp == 'Y')
-		{
 			strengthLVL++;
 
 			if (strengthLVL == 1)
@@ -253,7 +218,6 @@ void Hero::AssignStartingPoints(int op)
 			}
 
 			break;
-		}
 	}
 	}
 }

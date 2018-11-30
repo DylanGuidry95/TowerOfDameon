@@ -4,14 +4,14 @@
 
 class newGameClass
 {
+private:
+	int count = 0;
 public:
 	newGameClass();
-
-	enum choiceState {noSkill, health, defense, accuracy, strength};
 
 	void draw(aie::Renderer2D* renderer, int timer, aie::Font* font);
 
 	void drawText(aie::Renderer2D* renderer, aie::Font* font);
 
-	Hero StartGame();
+	Hero StartGame(int&);
 };
