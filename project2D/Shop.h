@@ -38,7 +38,7 @@ public:
 	aie::Texture*       welcometexture = new aie::Texture("./textures/welcome.png");
 	aie::Texture*       selltexture = new aie::Texture("./textures/sell.png");
 	aie::Texture*       shop= new aie::Texture("./textures/shop.png");
-	aie::Texture*       hero = new aie::Texture("./textures/sprites/Hero1Back.png");
+	aie::Texture*       hero = new aie::Texture("./textures/HeroSprites/Hero1Back.png");
 	aie::Texture*       shopkeep;
 	
 };

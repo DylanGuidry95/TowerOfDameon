@@ -208,6 +208,7 @@ void Game::draw(aie::Renderer2D * renderer, int state, int timer, aie::Font*font
 	case inBattle:
 	{
 		player->draw(renderer, timer, font, choice);
+		break;
 	}
 	case inContinue:
 	{
@@ -217,8 +218,9 @@ void Game::draw(aie::Renderer2D * renderer, int state, int timer, aie::Font*font
 	{
 		break;
 	}
-
+		break;
 	}
+	
 }
 
 void Game::battleladder(Hero*&player)
@@ -664,6 +666,7 @@ void Game::shop(Hero* &player)
 		item_Shop.shopstate = Shop::wait;
 		break;
 	}
+	break;
 	}
 
 	/*system("cls");

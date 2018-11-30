@@ -25,8 +25,8 @@ bool TowerofDameonApp::startup()
 	m_tower->initializeshop();
 	m_tower->initializeladder();
 
-	player = new Hero;
-	player->initalizeHero();
+	m_tower->player = new Hero;
+	m_tower->player->initalizeHero();
 	
 	m_cameraX = 0;
 	m_cameraY = 0;
@@ -49,6 +49,7 @@ void TowerofDameonApp::update(float deltaTime)
 	
 	m_timer += deltaTime;
 	gamestate = inShop;
+	
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
@@ -57,15 +58,18 @@ void TowerofDameonApp::update(float deltaTime)
 		case newGame:
 		{
 			std::string name;
-			player->AssignStartingPoints(name);
+			m_tower->player->AssignStartingPoints(name);
+			break;
 		}
 		case inShop:
 		{
-			m_tower->shop(player);
+			m_tower->shop(m_tower->player);
+			break;
 		}
 		case inBattle:
 		{
-			m_tower->battleladder();
+			m_tower->battleladder(m_tower->player);
+			break;
 		}
 		case(inContinue):
 		{
