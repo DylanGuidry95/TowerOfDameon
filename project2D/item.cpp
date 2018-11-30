@@ -4,7 +4,7 @@ Item::Item()
 {
 }
 
-Item::Item(std::string nameofitem, int costofitem)
+Item::Item(const char* nameofitem,  int costofitem)
 {
 	name = nameofitem;
 	mCost = costofitem;

@@ -18,13 +18,12 @@ public:
 	void shop(Hero*&);
 	void initializeshop();
 	Shop item_Shop;
-	void ladder();
+	void initializeladder();
 	const char* speak(int num);
 	void draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*);
 	
 	enum current { newGame,inShop, inBattle, inContinue };
 	current gamestate;
-	current shopstate;
 	void text(const char*);
 	//the combat:
 	void battleladder();
