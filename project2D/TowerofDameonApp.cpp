@@ -69,7 +69,7 @@ void TowerofDameonApp::update(float deltaTime)
 		}
 		case(inContinue):
 		{
-			break;
+
 		}
 		}
 
@@ -91,7 +91,7 @@ void TowerofDameonApp::draw()
 	// begin drawing sprites
 	
 
-	m_tower->draw(m_2dRenderer,gamestate,m_timer, m_font);
+	m_tower->draw(m_2dRenderer,gamestate,m_timer*8, m_font);
 
 	
 
