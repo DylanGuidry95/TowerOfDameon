@@ -166,6 +166,7 @@
     <ClCompile Include="armor.cpp" />
     <ClCompile Include="attackitem.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Continue.cpp" />
     <ClCompile Include="defenseitem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="attack.h" />
     <ClInclude Include="attackitem.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Continue.h" />
     <ClInclude Include="defenseitem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
