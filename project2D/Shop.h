@@ -22,6 +22,7 @@ public:
 	
 	const char* viewAttacks(int num);
 	const char*viewArmor(int num);
+	int getstocksize(int choice);
 
 	void draw(aie::Renderer2D*,int timer,aie::Font*);
 	void drawtext(aie::Renderer2D * renderer, aie::Font*);

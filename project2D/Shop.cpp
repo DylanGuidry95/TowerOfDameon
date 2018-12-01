@@ -30,7 +30,7 @@ DefenseItem Shop::selldefense(int choice)
 const char* Shop::viewAttacks(int num)
 {
 	const char* say;
-	if (attackstock.size() - 1<num)
+	if (attackstock.size() <= num)
 	{
 		say = "Sold Out";
 		return say;
@@ -54,6 +54,21 @@ const char* Shop::viewArmor(int num)
 	{
 		say = armorstock.at(num).name;
 		return say;
+	}
+}
+
+int Shop::getstocksize(int choice)
+{
+	switch (choice)
+	{
+	case 1:
+	{
+		return attackstock.size();
+	}
+	case 2:
+	{
+		return armorstock.size();
+	}
 	}
 }
 

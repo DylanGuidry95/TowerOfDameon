@@ -66,7 +66,7 @@ Enemy::Enemy()
 
 
 
-Enemy::Enemy(std::string name, Attack otherlistofattacks[3], float health, float def, float str, int minAcc, int maxAcc)
+Enemy::Enemy(const char* name, Attack otherlistofattacks[3], aie::Texture*othertexture, float health, float def, float str, int minAcc, int maxAcc)
 {
 	//(Stats:.. Can be changed later)
 	mHealth = health;
@@ -74,7 +74,7 @@ Enemy::Enemy(std::string name, Attack otherlistofattacks[3], float health, float
 	mStrength = str;
 	mAccuracy.min = minAcc;
 	mAccuracy.max = maxAcc;
-
+	charTexture = othertexture;
 	this->name = name;
 	for (int i = 0; i <= 2; i++)
 	{
@@ -91,4 +91,34 @@ bool Enemy::operator!=(Enemy rhs)
 bool Enemy::operator==(Enemy rhs)
 {
 	return this->name == rhs.name;
+}
+
+void Enemy::draw(aie::Renderer2D*renderer,int timer,aie::Font*font,int choice)
+{
+	renderer->drawSprite(charTexture, 650, 350, 116, 106);
+	drawtext(renderer, font,choice);
+}
+
+void Enemy::drawtext(aie::Renderer2D*renderer,aie::Font*font,int choice)
+{
+	switch (enemystate)
+	{
+	case attacking:
+	{
+		renderer->drawText(font, "The monster used", 300, 100, 100);
+		renderer->drawText(font, listofattacks[choice].name, 400, 100, 100);
+		break;
+	}
+	case defending:
+	{
+		renderer->drawText(font, "The monster raised its gaurd!", 300, 100, 100);
+		break;
+	}
+	case blocked:
+	{
+		renderer->drawText(font, "It blocked your attack!", 300, 100, 100);
+		break;
+	}
+
+	}
 }

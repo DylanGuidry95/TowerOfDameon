@@ -2,7 +2,7 @@
 #include "Attack.h"
 #include <string>
 #include "Accuracy.h"
-
+#include "Texture.h"
 //Character is an abstract class that both hero an enemy inherit from
 class Character
 {
@@ -13,6 +13,7 @@ protected:
 	float mStrength;
 	Accuracy mAccuracy;
 	Attack listofattacks[3];
+	aie::Texture* charTexture;
 public:
 	//The takeDamage function is called in the fight function and is only used to 
 	//decrement the hero/enemy's health
@@ -23,7 +24,7 @@ public:
 	}
 	//The fight function calculates the total damage output of the hero/enemy that is about to attack and then calls the take damage function with that value as its argument
 	virtual void fight(Character&,int attack) = 0;
-
+	
 	//checks the hero/enemy's health and returns true if health is greater than zero
 	bool isAlive();
 	Character();

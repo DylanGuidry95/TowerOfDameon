@@ -19,15 +19,19 @@ public:
 	void initializeshop();
 	Shop item_Shop;
 	Hero *player;
-	iterator<Enemy> currentenemy;
+	Enemy currentEnemy;
+	iterator<Enemy> currentEnemyPtr;
 	void initializeladder();
 	const char* speak(int num);
 	void draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*);
 	Character* ptr;
-	int choice;
+	int pchoice;
+	int echoice;
 	enum current { newGame,inShop, inBattle, inContinue,playerturn,enemyturn,viewstats,viewattacks, defending};
 	current gamestate;
 	current ladderstate = playerturn;
+
+	
 
 	//the combat:
 	void battleladder(Hero*&);

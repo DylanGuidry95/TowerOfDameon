@@ -48,7 +48,7 @@ void TowerofDameonApp::update(float deltaTime)
 	
 	
 	m_timer += deltaTime;
-	gamestate = inShop;
+	gamestate = inBattle;
 	
 	// input example
 	aie::Input* input = aie::Input::getInstance();

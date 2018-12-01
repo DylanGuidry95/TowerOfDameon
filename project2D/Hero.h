@@ -67,6 +67,11 @@ public:
 	int viewgold();
 	const char* getAttackName(int num);
 	
+	aie::Texture*       idletexture = new aie::Texture("./textures/idle.png");
+	aie::Texture*       welcometexture = new aie::Texture("./textures/welcome.png");
+	aie::Texture*       tower = new aie::Texture("./textures/tower.png");
+	aie::Texture*       hero = new aie::Texture("./textures/HeroSprites/Hero1Back.png");
+	aie::Texture*       shopkeep;
 
 	std::string getName();
 };

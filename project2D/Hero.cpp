@@ -462,10 +462,10 @@ void Hero::drawsprite(aie::Renderer2D * renderer, int timer, aie::Font * font)
 
 void Hero::draw(aie::Renderer2D*renderer, int timer, aie::Font* font,int choice)
 {
-	/*renderer->setUVRect(0.f, 0.f, 1, 1);
-	renderer->drawSprite(shop, 600, 450, 500, 583);
+	renderer->setUVRect(0.f, 0.f, 1, 1);
+	renderer->drawSprite(tower, 600, 450, 727, 474);
 
-	renderer->drawSprite(hero, 600, 400, 57, 92);*/
+	renderer->drawSprite(hero, 500, 300, 114, 165);
 
 
 	drawtext(renderer, font,choice);

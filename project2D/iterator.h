@@ -8,6 +8,10 @@ private:
 public:
 	iterator();
 	iterator(nodetype<h>*);
+	nodetype<h> *GetNext()
+	{
+		return current->link;
+	}
 	h operator *();
 	iterator<h> operator ++();
 	const bool operator == (const iterator<h>& iter);

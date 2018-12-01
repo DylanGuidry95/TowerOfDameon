@@ -1,7 +1,6 @@
 #pragma once
-#include "Character.h"
 #include "Hero.h"
-
+#include "Renderer2D.h"
 
 class Enemy : public Character
 {
@@ -18,10 +17,15 @@ public:
 
 	Enemy();
 
-	Enemy(std::string name, Attack listofattacks[3], float health, float def, float str, int minAcc, int maxAcc);
+	Enemy(const char* name, Attack otherlistofattacks[3],aie::Texture*, float health, float def, float str, int minAcc, int maxAcc);
 	bool operator <= (Enemy rhs);
 	bool operator != (Enemy rhs);
 	bool operator == (Enemy rhs);
+	aie::Texture* enemyTexture;
+	enum current{idle,attacking,hurt,defending,blocked};
+	current enemystate;
+	void draw(aie::Renderer2D*, int timer, aie::Font*font,int choice);
+	void drawtext(aie::Renderer2D*,aie::Font*,int choice);
 	const Enemy & Enemy::operator=(Character & otherenemy)
 	{
 		this->mHealth = otherenemy.getHealth();
