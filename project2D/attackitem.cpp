@@ -4,7 +4,7 @@ AttackItem::AttackItem()
 {
 }
 
-AttackItem::AttackItem(std::string nameofitem, int costofitem, Attack item)
+AttackItem::AttackItem(const char* nameofitem, int costofitem, Attack item)
 {
 	name = nameofitem;
 	mCost = costofitem;
@@ -18,4 +18,8 @@ std::ostream & operator<<(std::ostream & os, const AttackItem item)
 {
 	os << item.name << "\n" << "Cost: " << item.mCost;
 	return os;
+}
+bool AttackItem::operator==(AttackItem& other)
+{
+	return this->name == other.name;
 }

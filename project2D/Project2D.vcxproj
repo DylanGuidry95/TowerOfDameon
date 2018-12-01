@@ -22,7 +22,7 @@
     <ProjectGuid>{3F428D0C-1CC8-47C3-818A-A3C2972C74C9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Project2D</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -166,6 +166,7 @@
     <ClCompile Include="armor.cpp" />
     <ClCompile Include="attackitem.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Continue.cpp" />
     <ClCompile Include="defenseitem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="Ladder.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="newGame.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="TowerofDameonApp.cpp" />
   </ItemGroup>
@@ -183,13 +185,16 @@
     <ClInclude Include="attack.h" />
     <ClInclude Include="attackitem.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Continue.h" />
     <ClInclude Include="defenseitem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="iterator.h" />
+    <ClInclude Include="ladder.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="newGame.h" />
     <ClInclude Include="nodetype.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="TowerofDameonApp.h" />

@@ -4,13 +4,23 @@
 
 void Hero::takeDamage(float damageTaken)
 {
-	damageTaken = damageTaken - mDefense;
+	if (playerstate == Defending)
+	{
+		mDefense = mDefense + 30;
+		damageTaken = damageTaken - mDefense;
+		mDefense -= 30;
+	}
+	else
+	{
+		damageTaken = damageTaken - mDefense;
+	}
+	
 
 	//checks if the total damage output is less than or equal to zero if so hero recieves no damage
 	if (damageTaken <= 0)
 	{
 
-		std::cout << name << " blocked!" << std::endl;
+		playerstate = blocked;
 	}
 
 	if (mHealth > 0)
@@ -19,14 +29,14 @@ void Hero::takeDamage(float damageTaken)
 	}
 }
 
-void Hero::fight(Character*foe, Attack hit)
+void Hero::fight(Character&foe, int attack)
 {
 	float damageTaken;
 
 	srand(time(NULL));
 
 	//Creates a random value used to measure accuracy
-	int Accuracy_Value = rand() % 100;
+	int Accuracy_Value = 40;//rand() % 100;
 
 	//if the random accuracy value is less than the min required to land a hit no damage is dealt
 	if (Accuracy_Value < mAccuracy.min)
@@ -37,17 +47,17 @@ void Hero::fight(Character*foe, Attack hit)
 	//if the random accuracy value is more than the min required to land a hit and less than the maximum value required base damage is dealt
 	else if (Accuracy_Value > mAccuracy.min && Accuracy_Value < mAccuracy.max)
 	{
-		damageTaken = hit.mDamage + (hit.mDamage * mStrength);
+		damageTaken = listofattacks[attack].mDamage + (listofattacks[attack].mDamage * mStrength);
 
-		foe->takeDamage(damageTaken);
+		foe.takeDamage(damageTaken);
 	}
 
 	//if the random accuracy value is more than the max value required to land a hit the player's damage is doubled
 	else if (Accuracy_Value > mAccuracy.max)
 	{
-		damageTaken = (hit.mDamage + (hit.mDamage * mStrength) * 2);
+		damageTaken = (listofattacks[attack].mDamage + (listofattacks[attack].mDamage * mStrength) * 2);
 
-		foe->takeDamage(damageTaken);
+		foe.takeDamage(damageTaken);
 	}
 }
 
@@ -114,216 +124,101 @@ void Hero::unequipAttack(int choice)
 //needs to be looked at
 void Hero::initalizeHero()
 {
-	mGold = 99999;
+	mGold = 4;
 	mHealth = 100;
 	mDefense = 5;
 	mStrength = .05f;
 	mAccuracy.min = 30;
 	mAccuracy.max = 90;
+	Attack starter1("Flail", 5, 10);
+	Attack starter2("Quick Attack", 10, 5);
+	Attack starter3("Fury Rush", 30, 2);
+	listofattacks[0] = starter1;
+	listofattacks[1] = starter2;
+	listofattacks[2] = starter3;
 }
 
-void Hero::AssignStartingPoints(std::string othername)
+void Hero::AssignStartingPoints(int op)
 {
-	int count = 0;
-	int tempChoice = 0;
-	while (count != 2)
+	switch (op)
 	{
-		char op;
-		if (tempChoice > 0)
-		{
-			system("cls");
-			std::cout << "Enter (1) to level up your Health\n";
-			std::cout << "Enter (2) to level up your Defense\n";
-			std::cout << "Enter (3) to level up your Accuracy\n";
-			std::cout << "Enter (4) to level up your Strength\n\n";
+	case (0):
+	{
+		return;
+	}
 
-			std::cout << "Enter (0) to not apply a skill point\n\n";
-		}
-		else if (count < 1)
-		{
-			std::cout << "Please input a name for your hero: "; std::cin >> othername;
-			name = othername;
-			std::cout << "Hello " << name << ", to start off i'm going to give you 2 free skill points.\n";
-			std::cout << "You can use them however you want, or don't use them at all.\n";
-			system("pause");
+	case (1):
+	{
+			healthLVL++;
 
-			std::cout << "\nEnter (1) to level up your Health\n";
-			std::cout << "Enter (2) to level up your Defense\n";
-			std::cout << "Enter (3) to level up your Accuracy\n";
-			std::cout << "Enter (4) to level up your Strength\n\n";
-
-			std::cout << "Enter (0) to not apply a skill point\n\n";
-		}
-
-		if (count == 1)
-		{
-			system("cls");
-			std::cout << "You have 1 skill point left.\n\n";
-
-			std::cout << "Enter (1) to level up your Health\n";
-			std::cout << "Enter (2) to level up your Defense\n";
-			std::cout << "Enter (3) to level up your Accuracy\n";
-			std::cout << "Enter (4) to level up your Strength\n\n";
-
-			std::cout << "Enter (0) to not apply a skill point\n\n";
-		}
-
-		std::cin >> op;
-
-		switch (op)
-		{
-		case '0':
-		{
-			char temp;
-			std::cout << "\nAre you sure you don't want to use this skill point.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n\n";
-
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
+			if (healthLVL == 1)
 			{
-				break;
+				mHealth = 150;
 			}
-			else
+
+			if (healthLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mHealth = 200;
 			}
-		}
 
-		case '1':
-		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+			break;
+	}
 
-			std::cin >> temp;
+	case (2):
+	{
+			defenseLVL++;
 
-			if (temp == 'y' || temp == 'Y')
+			if (defenseLVL == 1)
 			{
-				healthLVL++;
-
-				if (healthLVL == 1)
-				{
-					mHealth = 150;
-				}
-
-				if (healthLVL == 2)
-				{
-					mHealth = 200;
-				}
-
-				break;
+				mDefense = 10;
 			}
-			else
+
+			if (defenseLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mDefense = 15;
 			}
-		}
 
-		case '2':
-		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+			break;
+	}
 
-			std::cin >> temp;
+	case (3):
+	{
+	
+			accLVL++;
 
-			if (temp == 'y' || temp == 'Y')
+			if (accLVL == 1)
 			{
-				defenseLVL++;
-
-				if (defenseLVL == 1)
-				{
-					mDefense = 10;
-				}
-
-				if (defenseLVL == 2)
-				{
-					mDefense = 15;
-				}
-
-				break;
+				mAccuracy.min = 26;
+				mAccuracy.max = 88;
 			}
-			else
+
+			if (accLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mAccuracy.min = 22;
+				mAccuracy.max = 86;
 			}
-		}
 
-		case '3':
-		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
+			break;
 
-			std::cin >> temp;
 
-			if (temp == 'y' || temp == 'Y')
+	}
+
+	case (4):
+	{
+			strengthLVL++;
+
+			if (strengthLVL == 1)
 			{
-				accLVL++;
-
-				if (accLVL == 1)
-				{
-					mAccuracy.min = 26;
-					mAccuracy.max = 88;
-				}
-
-				if (accLVL == 2)
-				{
-					mAccuracy.min = 22;
-					mAccuracy.max = 86;
-				}
-
-				break;
+				mStrength = .10f;
 			}
-			else
+
+			if (strengthLVL == 2)
 			{
-				tempChoice++;
-				system("cls");
-				continue;
+				mStrength = .15f;
 			}
-		}
 
-		case '4':
-		{
-			char temp;
-			std::cout << "\nAre you sure you want to use this skill point here.\n";
-			std::cout << "Enter (Y) to confirm, enter anything else to cancel.\n";
-
-			std::cin >> temp;
-
-			if (temp == 'y' || temp == 'Y')
-			{
-				strengthLVL++;
-
-				if (strengthLVL == 1)
-				{
-					mStrength = .10f;
-				}
-
-				if (strengthLVL == 2)
-				{
-					mStrength = .15f;
-				}
-
-				break;
-			}
-			else
-			{
-				tempChoice++;
-				system("cls");
-				continue;
-			}
-		}
-		}
-		system("cls");
-		count++;
+			break;
+	}
 	}
 }
 
@@ -331,41 +226,66 @@ bool Hero::upgrade(int pchoice)
 {
 	switch (pchoice)
 	{
-	case(1):
-	{
-		if (healthLVL == 5)
-			return false;
-		else
-		mHealth += 100;
-	}
-	case (2):
-	{
-		if (defenseLVL == 5)
-			return false;
-		else
-		mDefense += 5;
-	}
-	case(3):
-	{
-		if (strengthLVL == 5)
-			return false;
-		else
-		mStrength += .05;
-	}
-	case(4):
-	{
-		if (accLVL == 5)
-			return false;
-		else
-		mAccuracy.max -= 2;
-		mAccuracy.min -= 4;
-	}
+		case(1):
+		{
+			if (healthLVL == 5)
+				return false;
+			else
+			mHealth += 100;
+			mGold -= 500;
+		}
+		case (2):
+		{
+			if (defenseLVL == 5)
+				return false;
+			else
+			mDefense += 5;
+			mGold -= 500;
+		}
+		case(3):
+		{
+			if (strengthLVL == 5)
+				return false;
+			else
+			mStrength += .05;
+			mGold -= 500;
+		}
+		case(4):
+		{
+			if (accLVL == 5)
+				return false;
+			else
+			mAccuracy.max -= 2;
+			mAccuracy.min -= 4;
+			mGold -= 500;
+		}
 	}
 	return true;
 }
 
-void Hero::update()
+int Hero::viewgold()
 {
+	return mGold;
+}
+
+const char * Hero::getAttackName(int num)
+{
+	const char* ptr;
+	switch(num)
+	{
+		case 0:
+		{
+			return ptr = listofattacks[0].name; 
+		}
+		case 1:
+		{
+			return ptr = listofattacks[1].name;
+		}
+		case 2:
+		{
+			return ptr = listofattacks[2].name;
+		}
+	}
 }
 
 std::string Hero::getName()
@@ -389,4 +309,46 @@ void Hero::buy_Armor(Shop& store, int choice)
 	DefenseItem item_Bought = store.selldefense(choice);
 	mGold = mGold - item_Bought.mCost;
 	armorBag.push_back(item_Bought.suit);
+}
+
+void Hero::drawtext(aie::Renderer2D *renderer, aie::Font*font,int choice)
+{
+	switch (playerstate)
+	{
+	case Attacking:
+	{
+		renderer->drawText(font, "You used", 300, 100, 100);
+		renderer->drawText(font, listofattacks[choice].name, 400, 100, 100);
+		break;
+	}
+	case Defending:
+	{
+		renderer->drawText(font, "You raised your gaurd!", 300, 100, 100);
+		break;
+	}
+	case blocked:
+	{
+		renderer->drawText(font, "You blocked their attack!", 300, 100, 100);
+		break;
+	}
+
+	}
+}
+
+void Hero::drawsprite(aie::Renderer2D * renderer, int timer, aie::Font * font)
+{
+}
+
+void Hero::draw(aie::Renderer2D*renderer, int timer, aie::Font* font,int choice)
+{
+	/*renderer->setUVRect(0.f, 0.f, 1, 1);
+	renderer->drawSprite(shop, 600, 450, 500, 583);
+
+	renderer->drawSprite(hero, 600, 400, 57, 92);*/
+
+
+	drawtext(renderer, font,choice);
+	drawsprite(renderer, timer, font);
+	//, 300, 100, 100);
+
 }

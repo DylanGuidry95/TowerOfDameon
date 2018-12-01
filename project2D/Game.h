@@ -18,17 +18,20 @@ public:
 	void shop(Hero*&);
 	void initializeshop();
 	Shop item_Shop;
-	void ladder();
+	Hero *player;
+	iterator<Enemy> currentenemy;
+	void initializeladder();
 	const char* speak(int num);
 	void draw(aie::Renderer2D * renderer, int state,int timer,aie::Font*);
-	
-	enum current { newGame,inShop, inBattle, inContinue };
+	Character* ptr;
+	int choice;
+	enum current { newGame,inShop, inBattle, inContinue,playerturn,enemyturn,viewstats,viewattacks, defending};
 	current gamestate;
-	current shopstate;
-	void text(const char*);
+	current ladderstate = playerturn;
+
 	//the combat:
-	void battleladder();
+	void battleladder(Hero*&);
 	//linked list:
-	/*unorderedList<Enemy> enemyLadder;
-	Game(unorderedList<Enemy>);*/
+	unorderedList<Enemy> enemyLadder;
+	
 };

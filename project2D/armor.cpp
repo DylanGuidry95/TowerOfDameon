@@ -4,7 +4,7 @@ Armor::Armor()
 {
 }
 
-Armor::Armor(std::string othername, float defense, float health, float strength)
+Armor::Armor(const char* othername, float defense, float health, float strength)
 {
 	name = othername;
 	defenseBoost = defense;
